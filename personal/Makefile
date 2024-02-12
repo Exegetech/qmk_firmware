@@ -57,3 +57,28 @@ flash_firmware_piantor_pro:
 run_piantor_pro: clean make_keymap_piantor_pro copy_keymap_piantor_pro compile_firmware_piantor_pro
 
 flash_piantor_pro: clean make_keymap_piantor_pro copy_keymap_piantor_pro flash_firmware_piantor_pro
+
+make_keymap_boardsource_unicorne:
+	cd .. && qmk json2c personal/boardsource_unicorne/keymap.json -o personal/boardsource_unicorne/keymap.c
+	rm boardsource_unicorne/keymap.c.bak
+
+copy_keymap_boardsource_unicorne:
+	cd .. && cp -r personal/boardsource_unicorne/* keyboards/boardsource/unicorne/keymaps/personal
+
+compile_firmware_boardsource_unicorne_left:
+	cd .. && qmk compile -kb boardsource/unicorne -km personal -bl uf2-split-left
+
+compile_firmware_boardsource_unicorne_right:
+	cd .. && qmk compile -kb boardsource/unicorne -km personal -bl uf2-split-right
+
+flash_firmware_boardsource_unicorne_left:
+	cd .. && qmk flash -kb boardsource/unicorne -km personal -bl uf2-split-left
+
+flash_firmware_boardsource_unicorne_right:
+	cd .. && qmk flash -kb boardsource/unicorne -km personal -bl uf2-split-right
+
+run_boardsource_unicorne_left: clean make_keymap_boardsource_unicorne copy_keymap_boardsource_unicorne compile_firmware_boardsource_unicorne_left
+run_boardsource_unicorne_right: clean make_keymap_boardsource_unicorne copy_keymap_boardsource_unicorne compile_firmware_boardsource_unicorne_right
+
+flash_boardsource_unicorne_left: clean make_keymap_boardsource_unicorne copy_keymap_boardsource_unicorne flash_firmware_boardsource_unicorne_left
+flash_boardsource_unicorne_right: clean make_keymap_boardsource_unicorne copy_keymap_boardsource_unicorne flash_firmware_boardsource_unicorne_right
