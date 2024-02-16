@@ -82,3 +82,28 @@ run_boardsource_unicorne_right: clean make_keymap_boardsource_unicorne copy_keym
 
 flash_boardsource_unicorne_left: clean make_keymap_boardsource_unicorne copy_keymap_boardsource_unicorne flash_firmware_boardsource_unicorne_left
 flash_boardsource_unicorne_right: clean make_keymap_boardsource_unicorne copy_keymap_boardsource_unicorne flash_firmware_boardsource_unicorne_right
+
+make_keymap_bastardkb_tbkmini:
+	cd .. && qmk json2c personal/bastardkb_tbkmini/keymap.json -o personal/bastardkb_tbkmini/keymap.c
+	rm bastardkb_tbkmini/keymap.c.bak
+
+copy_keymap_bastardkb_tbkmini:
+	cd .. && cp -r personal/bastardkb_tbkmini/* keyboards/bastardkb/tbkmini/keymaps/personal
+
+compile_firmware_bastardkb_tbkmini_left:
+	cd .. && qmk compile -kb bastardkb/tbkmini/v2/splinky_3 -km personal -bl uf2-split-left
+
+compile_firmware_bastardkb_tbkmini_right:
+	cd .. && qmk compile -kb bastardkb/tbkmini/v2/splinky_3 -km personal -bl uf2-split-right
+
+flash_firmware_bastardkb_tbkmini_left:
+	cd .. && qmk flash -kb bastardkb/tbkmini/v2/splinky_3 -km personal -bl uf2-split-left
+
+flash_firmware_bastardkb_tbkmini_right:
+	cd .. && qmk flash -kb bastardkb/tbkmini/v2/splinky_3 -km personal -bl uf2-split-right
+
+run_bastardkb_tbkmini_left: clean make_keymap_bastardkb_tbkmini copy_keymap_bastardkb_tbkmini compile_firmware_bastardkb_tbkmini_left
+run_bastardkb_tbkmini_right: clean make_keymap_bastardkb_tbkmini copy_keymap_bastardkb_tbkmini compile_firmware_bastardkb_tbkmini_right
+
+flash_bastardkb_tbkmini_left: clean make_keymap_bastardkb_tbkmini copy_keymap_bastardkb_tbkmini flash_firmware_bastardkb_tbkmini_left
+flash_bastardkb_tbkmini_right: clean make_keymap_bastardkb_tbkmini copy_keymap_bastardkb_tbkmini flash_firmware_bastardkb_tbkmini_right
